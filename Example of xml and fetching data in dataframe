@@ -1,0 +1,63 @@
+"""<breakfast_menu>
+<food>
+<name >Belgian Waffles</name>
+<price>$5.95</price>
+<description>Two of our famous Belgian Waffles with plenty of real maple syrup</description>
+<calories>650</calories>
+</food>
+<food>
+<name>Strawberry Belgian Waffles</name>
+<price>$7.95</price>
+<description>Light Belgian waffles covered with strawberries and whipped cream</description>
+<calories>900</calories>
+</food>
+<food>
+<name>Berry-Berry Belgian Waffles</name>
+<price>$8.95</price>
+<description>Light Belgian waffles covered with an assortment of fresh berries and whipped cream</description>
+<calories>900</calories>
+</food>
+<food>
+<name>French Toast</name>
+<price>$4.50</price>
+<description>Thick slices made from our homemade sourdough bread</description>
+<calories>600</calories>
+</food>
+<food>
+<name>Homestyle Breakfast</name>
+<price>$6.95</price>
+<description>Two eggs, bacon or sausage, toast, and our ever-popular hash browns</description>
+<calories>950</calories>
+</food>
+</breakfast_menu>"""
+
+
+
+import pandas as pd
+from xml.dom import minidom
+tree=minidom.parse("note.xml")
+lst=[]
+df_cols = ["name", "price", "desc", "calories"]
+rows = []
+name=tree.getElementsByTagName('name')
+
+price=tree.getElementsByTagName('price')
+desc=tree.getElementsByTagName('description')
+cal=tree.getElementsByTagName('calories')
+print(len(name))
+
+
+for i in range(len(name)):
+    temp1=name[i].firstChild.data
+    temp2=price[i].firstChild.data
+    temp3=desc[i].firstChild.data
+    temp4=cal[i].firstChild.data
+    rows.append({"name": temp1, "price": temp2, 
+                 "desc": temp3, "calories": temp4})
+    
+print(rows)
+out_df = pd.DataFrame(rows, columns = df_cols)
+pd.Index(['f1','f2','f3','f4','f4'])
+out_df
+
+
