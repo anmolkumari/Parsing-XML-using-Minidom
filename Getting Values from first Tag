@@ -1,0 +1,33 @@
+import pandas as pd
+import xml.dom.minidom as md
+data = "rf.xml"
+docs = md.parse(data)
+entry = docs.getElementsByTagName("Entry")
+for i in entry:
+    print(i)
+    #to check address
+  
+# Get all attributes using minidom
+dictEntry={}
+newDict={}
+for i in range(0,len(entry)):
+    print('Entry',i)
+    attribList=[]
+#     print(entry[i].attributes.items())
+    for attrName, attrValue in entry[i].attributes.items():
+        print(attrName,attrValue)
+        attribList.append(attrValue)
+        dictEntry[i]=attribList
+        if (i==0):
+            newDict[attrName]=[]
+        newDict[attrName].append(attrValue)
+    print('_________________________')
+   # print(dictEntry)
+    print()
+    
+    #print(newDict)
+    #print(dictEntry[i])
+ 
+cols=['id','class','mtype','seqlen']
+entryDf=pd.DataFrame(newDict)
+print(entryDf)
